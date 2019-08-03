@@ -1,4 +1,5 @@
-
+ 
+ 
 // 1. Follow the recipe instructions inside the Segment class.
 // The Segment class will be used to represent each part of the moving snake.
 class Segment {
@@ -68,7 +69,7 @@ void setup() {
 
 void draw() {
 
-  background(0);
+  background(200);
 
 
   //12. Call the manageTail, drawFood, drawSnake, move, and collision methods.
@@ -115,10 +116,10 @@ void move() {
     head.setY(head.getY()+10);
     break;
   case "left":
-   head.setX(head.getX()+10);
+   head.setX(head.getX()-10);
     break;
   case "right":
-   head.setX(head.getX()-10);
+   head.setX(head.getX()+10);
     break;
   }
   
@@ -133,7 +134,16 @@ void move() {
 
 void keyPressed() {
   if(keyCode == 37){
-    
+    direct = "left";
+  }
+  if(keyCode == 38){
+    direct = "up";
+  }
+  if(keyCode == 39){
+    direct = "right";
+  }
+  if(keyCode == 40){
+    direct = "down";
   }
 }
 
@@ -142,6 +152,18 @@ void keyPressed() {
 // 19. check if your head is out of bounds (teleport your snake head to the other side).
 
 void checkBoundaries() {
+  if(head.getX() > 500){
+    head.setX(0);
+}
+  if(head.getX() < 0){
+    head.setX(500);
+  }
+  if(head.getY() > 500){
+    head.setY(0);
+  }
+  if(head.getY() < 0){
+    head.setY(500);
+  }
 }
 
 
@@ -156,6 +178,12 @@ void collision() {
 
   // If the segment is colliding with a piece of food...
      // Increase the amount of food eaten and set foodX and foodY to new random locations.
+   if(head.getX() == foodX && head.getY() == foodY){
+     int food = 1+1;
+     rect(foodX,foodY,10,10);
+     
+     
+   }
 }
 
 
@@ -167,14 +195,15 @@ void collision() {
  **/
 
 //  1. Create and initialize an ArrayList of Segments. (This will be your snake tail!)
-
+   Segment [] tail = new Segment[5];
 
 // 2. Complete the missing parts of the manageTail method below and call it in the draw method.
 
 void manageTail() {
 
   //Call the drawTail and checkTailCollision methods.
-
+drawTail();
+checkTailCollision();
   // Add a new Segment to your ArrayList that has the same X and Y as the head of your snake.
 
   // To keep your tail the right length:
